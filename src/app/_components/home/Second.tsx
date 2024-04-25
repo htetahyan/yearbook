@@ -44,7 +44,7 @@ tl.to(textRefs.current,{
         borderRadius:'20px',
         scale:1.5
     },'<')
-gsap.to(textRefs.current,{
+.to(textRefs.current,{
     yPercent:60,
     top:500,
     scrollTrigger:{

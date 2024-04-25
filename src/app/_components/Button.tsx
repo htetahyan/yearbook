@@ -3,11 +3,11 @@ import React, {FC, forwardRef} from 'react';
 import {cva, VariantProps} from "class-variance-authority";
 import {cn} from '~/styles/utils'
 const btnVariants = cva(
-    'inline-block rounded-md hover:ring-2 hover:ring-offset-2 transition-all rounded-md duration-300 ',
+    'inline-block rounded-md hover:scale-x-[90%] will-change-transform hover:ring-2 hover:ring-offset-2 transition-all rounded-md duration-300 ',
     {
         variants: {
             variant: {
-                primary: 'bg-gradient-to-br from-[#ff5a5f] via-[#ff8474] to-[#ff5a5f] text-white font-bold py-2 px-4 rounded shadow-md hover:shadow-lg transition-all',
+                primary: 'bg-gradient-to-r from-blue-600 to-violet-600 text-white font-bold py-2 px-4 rounded shadow-md hover:shadow-lg transition-all',
                 secondary: 'bg-gradient-to-br from-[#5b8c5a] via-[#78d167] to-[#5b8c5a] text-white font-bold py-2 px-4 rounded shadow hover:shadow-md transition-all',
                 danger: 'bg-gradient-to-br from-[#ff3030] via-[#ff4747] to-[#ff3030] text-white font-bold py-2 px-4 rounded shadow-md hover:shadow-lg transition-all',
                 success: 'bg-[#0e1129] text-white font-bold py-2 px-4 rounded shadow-md hover:shadow-lg transition-all',

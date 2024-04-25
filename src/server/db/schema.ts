@@ -3,11 +3,12 @@
 
 import {relations, sql} from "drizzle-orm";
 import {
-  bigint,
-  index,
-  mysqlTableCreator,
-  timestamp,
-  varchar,
+    bigint,
+    text,
+    index,
+    mysqlTableCreator,
+    timestamp,
+    varchar,
 } from "drizzle-orm/mysql-core";
 
 /**
@@ -24,7 +25,7 @@ export const users=createTable(
         id:bigint("id",{mode:"number"}).primaryKey().autoincrement(),
 
         name:varchar("name",{length:256})
-,email:varchar('email',{length:256}).unique(),
+        ,email:varchar('email',{length:256}).unique(),
         password:varchar("password",{length:256}).notNull(),
 
         createdAt:timestamp("created_at")
@@ -42,29 +43,98 @@ export const yearbooks=createTable(
     'yearbook',
     {
         id:bigint("id",{mode:"number"}).primaryKey().autoincrement(),
-  student_id:varchar('student_id',{length:256}).notNull(),
-        author:bigint('author_id',{mode:'number'}).references(()=> users.id)
+        student_id:varchar('student_id',{length:256}).notNull(),
+        author:bigint('author_id',{mode:'number'})
+    },
+    (table)=>{
+        return{
+            nameIdx:index("name_idx").on(table.author)
+        }
     }
 )
+export const usersRelations=relations(
+    users,({one,many})=>({
+        yearbook: one(yearbooks,{
+            fields:[users.id],
+            references:[yearbooks.author]
+        }),
+        likes:many(likes),
+        comments:many(comments)
 
-export const files=createTable('file',{
+    })
+)
+
+export const files=createTable('files',{
     id:bigint('id',{mode:"number"}).primaryKey().autoincrement(),
     url:varchar('url',{length:256}).notNull()
     ,size:bigint('size',{mode:'number'}).notNull(),
     yearbook_id:bigint('yearbook_id',{mode:'number'}).notNull()
 })
 export const yearbooksRelations=relations(yearbooks,({many,one})=>({
-files:many(files),
+    files:many(files),
     user:one(users,{
         fields:[yearbooks.author],
         references:[users.id]
-    })
+    }),
+    likes:many(likes),
+    comments:many(comments)
 }))
 export const filesRelations=relations(
     files,({one})=>({
-yearbook:one(yearbooks,{
-    fields: [files.yearbook_id],
-    references: [yearbooks.id],
-})
+        yearbook:one(yearbooks,{
+            fields: [files.yearbook_id],
+            references: [yearbooks.id],
+        })
     })
+)
+export const comments=createTable(
+    'comment',{
+        id:bigint('id',{mode:"number"}).primaryKey().autoincrement(),
+        content:text('content').notNull(),
+        author:bigint('author_id',{mode:'number'}),
+        createdAt:timestamp("created_at")
+            .default(sql`CURRENT_TIMESTAMP`)
+            .notNull(),
+        yearbook:bigint('yearbook_id',{mode:'number'}),
+    },(table)=>{
+        return{
+            nameIdx:index("name_idx").on(table.author)
+        }
+    }
+)
+export const commentsRelations=relations(
+    comments,({many,one})=>({
+        yearbook:many(yearbooks),
+        author:one(users,{
+            fields:[comments.author],
+            references:[users.id]
+        })
+    }),
+)
+export const likes=createTable(
+    'like',{
+        id:bigint('id',{mode:"number"}).primaryKey().autoincrement(),
+        author:bigint('author_id',{mode:'number'}),
+        createdAt:timestamp("created_at")
+            .default(sql`CURRENT_TIMESTAMP`)
+            .notNull(),
+        yearbook:bigint('yearbook_id',{mode:'number'}).notNull(),
+    },(table)=>{
+        return{
+            nameIdx:index("name_idx").on(table.author)
+        }
+    }
+)
+export const likesRelations=relations(
+    likes,({one})=>({
+        yearbooks:one(yearbooks,{
+            fields:[likes.yearbook],
+            references:[yearbooks.id]
+        }),
+
+        author:one(users,{
+            fields:[likes.author],
+            references:[users.id]
+        })
+    }),
 )

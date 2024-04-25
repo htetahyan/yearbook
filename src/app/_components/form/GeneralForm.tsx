@@ -9,15 +9,17 @@ import {
     FieldProps,
 } from 'formik';
 import {Input} from "~/app/_components/Input";
-
+import ReCAPTCHA from 'react-google-recaptcha'
+import {Button} from "~/app/_components/Button";
 interface MyFormValues {
-    firstName: string;
+   email:string;
+   password:string
 }
 
  const GeneralForm: React.FC<{}> = () => {
-    const initialValues: MyFormValues = { firstName: '' };
+    const initialValues: MyFormValues = { email: '',password:'' };
     return (
-        <div className={' flex w-screen h-fit mt-16 justify-center items-center'}>
+        <div className={' flex w-screen h-fit mt-16 justify-center font-secondary  items-center'}>
 
             <Formik
                 initialValues={initialValues}
@@ -27,18 +29,22 @@ interface MyFormValues {
                     actions.setSubmitting(false);
                 }}
             >{(props)=>(
-                <form className={'w-1/3 h-[500px] flex flex-col gap-4 '}>
-                    <div><label className={'text-xl'}>
-                        Name
+                <Form className={'w-1/3 h-[500px] flex flex-col gap-4 '}>
+                    <div><label  className={'text-2xl'}>
+                        Email
                     </label>
-                        <Input className={'text-black'}/>
+                        <Input onChange={props.handleChange} name={'email'} type={'email'} className={'text-black'}/>
                     </div>
-                    <div><label className={'text-xl'}>
-                        Name
+                    <div><label className={'text-2xl'}>
+                        Password
                     </label>
-                        <Input className={'text-black'}/>
+                        <Input onChange={props.handleChange} name={'password'} type={'password'} className={'text-black'}/>
                     </div>
-                </form>
+                    <ReCAPTCHA sitekey={process.env.NEXT_PUBLIC_RECAPCHA_KEY!} />
+                    <Button >
+                        Submit
+                    </Button>
+                </Form>
             )}
 
 

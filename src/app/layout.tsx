@@ -1,13 +1,9 @@
 import "~/styles/globals.css";
 
-import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import Header from "~/app/_components/general/Header";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
+
 const juma=localFont({
   src: '../../public/fonts/juma.ttf',
   variable:'--font-juma',

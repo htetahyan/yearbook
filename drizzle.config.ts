@@ -1,12 +1,15 @@
 import { type Config } from "drizzle-kit";
+import * as dotenv from 'dotenv';
 
-import { env } from "~/env";
+dotenv.config({
+  path: '.env',
+});
 
 export default {
   schema: "./src/server/db/schema.ts",
   driver: "mysql2",
   dbCredentials: {
-    uri: env.DATABASE_URL,
+    uri: process.env.DATABASE_URL!,
   },
-  tablesFilter: ["yearbook_*"],
+  tablesFilter: ["*"],
 } satisfies Config;
