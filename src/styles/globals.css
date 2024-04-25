@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body::-webkit-scrollbar {
+    display: none;
+}
+.mask{
+    mask: url('../../public/shape01.svg');
+    -webkit-mask: url('../../public/shape01.svg');
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+
+    mask-size: 60%;
+}
+.mask02{
+    mask: url('../../public/shape02.svg');
+    -webkit-mask: url('../../public/shape02.svg');
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+
+    mask-size: 80%;
+}
+.text-gradient{
+    color: transparent;
+    background: linear-gradient(90deg, #05ffbf 0%, rgba(229, 255, 0, 0.84) 100%);
+    background-clip: text;
+}
