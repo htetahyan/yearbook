@@ -59,10 +59,10 @@ tl.to(textRefs.current,{
     },{scope:container})
     return (
         <div ref={container} className={'h-[500px]'}>
-          <div className={'flex items-center'}> <SteadyText text={'/Our Yearbook'}/>
+          <div className={'flex items-center'}> <SteadyText className={'text-5xl md:text-7xl lg:text-8xl'} text={'/Our Yearbook'}/>
               <Image ref={loaderRef} src={loader01} alt={'loader'} className={'w-16'}/>
           </div>
-            <div className={'text-4xl uppercase relative h-3/4 mt-10  p-2 w-screen'}>
+            <div className={' text-3xl lg:text-4xl uppercase relative h-3/4 mt-10  p-2 w-screen'}>
                 <h2
                     ref={el => {
                         if(el){
