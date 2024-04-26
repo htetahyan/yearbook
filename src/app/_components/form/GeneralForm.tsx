@@ -2,11 +2,9 @@
 import * as React from 'react';
 import {
     Formik,
-    FormikHelpers,
-    FormikProps,
+
     Form,
-    Field,
-    FieldProps,
+
 } from 'formik';
 import {Input} from "~/app/_components/Input";
 import ReCAPTCHA from 'react-google-recaptcha'
@@ -19,7 +17,7 @@ interface MyFormValues {
 
  const GeneralForm: React.FC<{}> = () => {
     const initialValues: MyFormValues = { email: '',password:'' };
-    const recaptcha = React.useRef(null)
+    const recaptcha = React.useRef<any>(null)
 
     return (
         <div className={' flex w-screen h-fit mt-16 justify-center font-secondary  items-center'}>
@@ -29,8 +27,8 @@ interface MyFormValues {
                 onSubmit={async(values, actions) => {
                     const captchaValue = recaptcha?.current?.getValue() 
     if (!captchaValue) {
-        toast.success('success'      
-        )
+        toast.error('Please verify you are not a bot')      
+        
     } else {
  const res=await fetch('/api/recapcha',{
     body:JSON.stringify({value:captchaValue}),method:'POST'

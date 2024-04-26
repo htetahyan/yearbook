@@ -29,9 +29,9 @@ const Hero = () => {
                 </div>
             </div>
             <div className={'absolute top-0 -z-10 w-full h-full'}>
-                <BlurImage width={250}  className={'absolute top-0 opacity-80 left-2  rounded-full w-[170px] md:w-[200px] lg:w-[250px]'}  src={students01}/>
-    <BlurImage className={'absolute bottom-1/3 hidden md:block md:bottom-0 opacity-80 left-1/3 md:left-2 rounded-md mask border-1 w-[170px] md:w-[200px] lg:w-[250px]'} width={300}  src={students02}/>
-<BlurImage className={'absolute bottom-0 md:bottom-0 opacity-80 right-2 md:right-2 mask02 border-1 w-[170px] md:w-[200px] lg:w-[250px]'}  width={300} src={students03}/>
+                <BlurImage width={250}  className={'absolute top-0 opacity-80 left-2  rounded-full w-[180px] md:w-[200px] lg:w-[250px]'}  src={students01}/>
+    <BlurImage className={'absolute bottom-1/3 hidden md:block md:bottom-0 opacity-80 left-1/3 md:left-2 rounded-md mask border-1 w-[180px] md:w-[200px] lg:w-[250px]'} width={300}  src={students02}/>
+<BlurImage className={'absolute bottom-0 md:bottom-0 opacity-80 right-2 md:right-2 mask02 border-1 w-[180px] md:w-[220px] lg:w-[250px]'}  width={300} src={students03}/>
             </div>
 
         </div>
