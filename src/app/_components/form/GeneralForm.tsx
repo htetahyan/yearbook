@@ -11,6 +11,7 @@ import {
 import {Input} from "~/app/_components/Input";
 import ReCAPTCHA from 'react-google-recaptcha'
 import {Button} from "~/app/_components/Button";
+import { toast } from 'sonner';
 interface MyFormValues {
    email:string;
    password:string
@@ -18,18 +19,28 @@ interface MyFormValues {
 
  const GeneralForm: React.FC<{}> = () => {
     const initialValues: MyFormValues = { email: '',password:'' };
+    const recaptcha = React.useRef(null)
+
     return (
         <div className={' flex w-screen h-fit mt-16 justify-center font-secondary  items-center'}>
 
             <Formik
                 initialValues={initialValues}
-                onSubmit={(values, actions) => {
-                    console.log({ values, actions });
-                    alert(JSON.stringify(values, null, 2));
-                    actions.setSubmitting(false);
+                onSubmit={async(values, actions) => {
+                    const captchaValue = recaptcha?.current?.getValue() 
+    if (!captchaValue) {
+        toast.success('success'      
+        )
+    } else {
+ const res=await fetch('/api/recapcha',{
+    body:JSON.stringify({value:captchaValue}),method:'POST'
+ })
+toast.success('success')
+ 
+    }
                 }}
             >{(props)=>(
-                <Form className={'w-1/3 h-[500px] flex flex-col gap-4 '}>
+                <Form className={'w-1/2 lg:w-1/3 h-[500px] flex flex-col gap-4 '}>
                     <div><label  className={'text-2xl'}>
                         Email
                     </label>
@@ -40,7 +51,7 @@ interface MyFormValues {
                     </label>
                         <Input onChange={props.handleChange} name={'password'} type={'password'} className={'text-black'}/>
                     </div>
-                    <ReCAPTCHA sitekey={process.env.NEXT_PUBLIC_RECAPCHA_KEY!} />
+                    <ReCAPTCHA ref={recaptcha}   theme={'dark'} sitekey={'6LevWMUpAAAAAIH82TGkvd1fMccegGtStR5GIjNX'} />
                     <Button >
                         Submit
                     </Button>

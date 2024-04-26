@@ -2,6 +2,7 @@ import "~/styles/globals.css";
 
 import localFont from "next/font/local";
 import Header from "~/app/_components/general/Header";
+import { Toaster } from "sonner";
 
 
 const juma=localFont({
@@ -33,6 +34,21 @@ bg-gradient-to-br from-[#2e026d] via-[#0e1129] to-[#2e026d]
 text-white
 min-h-screen
       `}>
+             <Toaster
+             richColors
+ position="top-center"
+ closeButton
+toastOptions={{
+ 
+style:{
+
+  backdropFilter:"blur(20px)",
+ background:'transparent',
+
+color:'white'
+}
+}}
+/>
       <Header/>
       {children}</body>
     </html>
