@@ -7,7 +7,6 @@ export const POST=async(req:NextRequest)=>{
 {headers:{
     "Content-type":"application/x-www-form-urlencoded"
 }})
-console.log(res.value,data);
 
     if(data?.success){
     return NextResponse.json({success:true})

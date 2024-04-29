@@ -18,11 +18,12 @@ const Header = () => {
 
             </div>
             <div className={'flex items-center justify-center gap-4 text-3xl font-secondary underline'}>
-             <Button variant={'success'}  size={'sm'} className={'text-xl bg-[#0e1129]'}>
+            <Link href={'/join/login'}> <Button variant={'success'}  size={'sm'} className={'text-xl bg-[#0e1129]'}>
 
                      Login &rarr;
 
              </Button>
+             </Link>
             </div>
         </div>
     );

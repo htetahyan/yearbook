@@ -26,3 +26,8 @@ body::-webkit-scrollbar {
     background: linear-gradient(90deg, #05ffbf 0%, rgba(229, 255, 0, 0.84) 100%);
     background-clip: text;
 }
+.text-gradient02{
+    color: transparent;
+    background: linear-gradient(90deg, #ffd001 0%, rgba(1, 255, 191, 0.84) 100%);
+    background-clip: text;
+}

@@ -1,10 +1,10 @@
 import React from 'react';
-import GeneralForm from "~/app/_components/form/GeneralForm";
+import GeneralForm from "~/app/_components/authForm/GeneralForm";
 
 const Page = () => {
     return (
         <div className={'h-[85vh]'}>
-<GeneralForm/>
+<GeneralForm path={'join'}/>
         </div>
     );
 };

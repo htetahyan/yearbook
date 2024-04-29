@@ -138,3 +138,7 @@ export const likesRelations=relations(
         })
     }),
 )
+
+
+
+export type NewUser = typeof users.$inferInsert;

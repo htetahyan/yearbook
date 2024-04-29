@@ -7,7 +7,7 @@
     "build": "next build",
     "db:push": "drizzle-kit push:mysql",
     "db:studio": "drizzle-kit studio",
-    "dev": "next dev",
+    "devil": "next dev",
     "lint": "next lint",
     "start": "next start"
   },
@@ -15,12 +15,14 @@
     "@gsap/react": "^2.1.1",
     "@t3-oss/env-nextjs": "^0.9.2",
     "axios": "^1.6.8",
+    "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.29.4",
     "formik": "^2.4.5",
     "gsap": "^3.12.5",
+    "jose": "^5.2.4",
     "mysql2": "^3.9.1",
     "next": "^14.2.3",
     "plaiceholder": "^3.0.0",
@@ -34,6 +36,7 @@
     "zod": "3.22.4"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/eslint": "^8.56.2",
     "@types/node": "^20.11.20",
     "@types/react": "^18.2.57",
