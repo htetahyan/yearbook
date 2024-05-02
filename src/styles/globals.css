@@ -2,9 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-body::-webkit-scrollbar {
-    display: none;
+
+body{
+max-width: 100vw;
+overflow-x: hidden;
+
+
 }
+
 .mask{
     mask: url('../../public/shape01.svg');
     -webkit-mask: url('../../public/shape01.svg');

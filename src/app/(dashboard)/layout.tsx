@@ -1,5 +1,6 @@
 import "~/styles/globals.css";
 import Header from "~/app/(dashboard)/_dashboard_components/header/header";
+import FooterNavigation from "~/app/(dashboard)/_dashboard_components/FooterNavigation";
 
 
 export const metadata = {
@@ -14,12 +15,16 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en">
+        <html lang="en" >
         <body className={``}>
-        <div className={'flex items-center gap-2'}>
+
             <Header/>
+            <div className={'w-screen flex justify-center'}>
+
         {children}
-        </div></body>
+        <FooterNavigation/>
+            </div>
+       </body>
         </html>
     );
 }

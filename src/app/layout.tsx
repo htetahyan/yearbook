@@ -39,7 +39,7 @@ min-h-screen
  position="top-center"
  closeButton
 toastOptions={{
- 
+
 style:{
 
   backdropFilter:"blur(20px)",

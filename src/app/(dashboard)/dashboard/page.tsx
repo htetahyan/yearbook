@@ -2,8 +2,8 @@ import React from 'react';
 
 const Page = () => {
     return (
-        <div>
-            
+        <div className={'h-page w-[40vw] bg-white'}>
+
         </div>
     );
 };
