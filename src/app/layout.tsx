@@ -49,7 +49,6 @@ color:'white'
 }
 }}
 />
-      <Header/>
       {children}</body>
     </html>
   );

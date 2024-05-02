@@ -1,18 +1,28 @@
 import { drizzle } from "drizzle-orm/mysql2";
-import { createPool, type Pool } from "mysql2/promise";
+import dotenv from "dotenv";
+import * as schema from './schema';
+import mysql from "mysql2/promise";
 
-import { env } from "~/env";
-import * as schema from "./schema";
 
-/**
- * Cache the database connection in development. This avoids creating a new connection on every HMR
- * update.
- */
-const globalForDb = globalThis as unknown as {
-  conn: Pool | undefined;
+
+const config = {
+uri:process.env.DATABASE_URL,
+  waitForConnections: true,
+  connectionLimit: 20,
+  queueLimit: 0,
+
+  ssl:{
+    rejectUnauthorized: false,
+
+
+  }
 };
 
-const conn = globalForDb.conn ?? createPool({ uri: env.DATABASE_URL });
-if (env.NODE_ENV !== "production") globalForDb.conn = conn;
+export async function initDb() {
 
-export const db = drizzle(conn, { schema, mode: "default", });
+  const client = mysql.createPool(config);
+  return drizzle(client,{schema,mode:'default'});
+
+
+}
+export const db=await initDb().catch((e)=>{throw new Error('s')})

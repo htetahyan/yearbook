@@ -1,9 +1,11 @@
-import { eq } from "drizzle-orm"
-import { db } from "../db"
-import { NewUser, users } from "../db/schema"
-import jose, { SignJWT } from 'jose'
+import {eq} from "drizzle-orm"
+import {db} from "../db"
+import {NewUser, users} from "../db/schema"
+import jose, {SignJWT} from 'jose'
 import bcrypt from 'bcryptjs';
-import { ResponseCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import {ResponseCookie} from "next/dist/compiled/@edge-runtime/cookies";
+import 'server-only'
+
 export const checkUserExists = async (email: string) => {
     const res=await db.query.users.findFirst({
         where : eq(users.email, email)
@@ -34,14 +36,13 @@ return  bcrypt.hashSync(password, salt);
  const secretKey=new TextEncoder().encode(process.env.JWT_SECRET)
  export const generateToken =async (user: any) => {
     try {
-        const token = await new SignJWT({ email: user.email })
-        .setProtectedHeader({ alg: "HS256" })
-        .setIssuedAt()
-        .setIssuer("https://example.com")
-        .setAudience("https://example.com")
-        .setExpirationTime("1h")
-        .sign(secretKey);
-        return token
+        return await new SignJWT({email: user.email})
+            .setProtectedHeader({alg: "HS256"})
+            .setIssuedAt()
+            .setIssuer("https://example.com")
+            .setAudience("https://example.com")
+            .setExpirationTime("1h")
+            .sign(secretKey)
     }catch (error:any) {
 throw new Error (error.message)
     }
@@ -52,7 +53,7 @@ throw new Error (error.message)
  }
 
  export const verifyToken = async (token: string) => {
-  const {  payload,protectedHeader} =   await jose.jwtVerify(token,secretKey,{
+  const {  payload} =   await jose.jwtVerify(token,secretKey,{
         issuer: "https://example.com",
         audience:'https://example.com'
      });
