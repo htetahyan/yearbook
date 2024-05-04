@@ -36,3 +36,9 @@ overflow-x: hidden;
     background: linear-gradient(90deg, #ffd001 0%, rgba(1, 255, 191, 0.84) 100%);
     background-clip: text;
 }
+.glassBg{
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.09) 100%);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+}

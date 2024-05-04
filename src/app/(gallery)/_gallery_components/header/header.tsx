@@ -2,7 +2,7 @@
 import React, {useRef, useState} from 'react';
 import StaticImage from "~/app/_components/general/StaticImage";
 import {staticLogo} from "~/assets/exporter";
-import Avatar from "~/app/(dashboard)/_dashboard_components/header/avatar";
+import Avatar from "~/app/(gallery)/_gallery_components/header/avatar";
 import {useOutsideClick} from "~/hooks/useHandleOutsideClick";
 import {useGSAP} from "@gsap/react";
 import {gsap} from "gsap";

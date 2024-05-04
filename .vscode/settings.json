@@ -1,4 +1,17 @@
 {
     "IDX.aI.enableInlineCompletion": true,
-    "IDX.aI.enableCodebaseIndexing": true
+    "IDX.aI.enableCodebaseIndexing": true,
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "driver": "MySQL",
+            "name": "yearbook",
+            "group": "yearbook",
+            "connectString": "mysql://edusn:yearbook@62.72.58.176:3306/yearbookdb"
+        }
+    ]
 }

@@ -9,6 +9,7 @@ import {
     mysqlTableCreator,
     timestamp,
     varchar,
+    primaryKey,
 } from "drizzle-orm/mysql-core";
 
 /**
@@ -22,7 +23,7 @@ export const createTable = mysqlTableCreator((name) => `${name}`);
 
 export const users=createTable(
     'user',{
-        id:bigint("id",{mode:"number"}).primaryKey().autoincrement(),
+        id:bigint("id",{mode:"number"}).primaryKey().autoincrement().notNull(),
 
         name:varchar("name",{length:256})
         ,email:varchar('email',{length:256}).unique(),
@@ -43,21 +44,24 @@ export const yearbooks=createTable(
     'yearbook',
     {
         id:bigint("id",{mode:"number"}).primaryKey().autoincrement(),
+        name:varchar("name",{length:256}).notNull(),
+        caption:varchar("caption",{length:256}).notNull(),
         student_id:varchar('student_id',{length:256}).notNull(),
-        author:bigint('author_id',{mode:'number'})
+author_id: bigint('author_id',{mode:'number'}).references(() => users.id).notNull(),
+createdAt:timestamp("created_at")
+            .default(sql`CURRENT_TIMESTAMP`)
+            .notNull(),
     },
     (table)=>{
         return{
-            nameIdx:index("name_idx").on(table.author)
+            nameIdx:index("name_idx").on(table.author_id),
+
         }
     }
 )
 export const usersRelations=relations(
     users,({one,many})=>({
-        yearbook: one(yearbooks,{
-            fields:[users.id],
-            references:[yearbooks.author]
-        }),
+      yearbooks:one(yearbooks),
         likes:many(likes),
         comments:many(comments)
 
@@ -68,34 +72,23 @@ export const files=createTable('files',{
     id:bigint('id',{mode:"number"}).primaryKey().autoincrement(),
     url:varchar('url',{length:256}).notNull()
     ,size:bigint('size',{mode:'number'}).notNull(),
-    yearbook_id:bigint('yearbook_id',{mode:'number'}).notNull()
+    yearbook_id:bigint('yearbook_id',{mode:'number'}).references(() => yearbooks.id).notNull()
 })
 export const yearbooksRelations=relations(yearbooks,({many,one})=>({
     files:many(files),
-    user:one(users,{
-        fields:[yearbooks.author],
-        references:[users.id]
-    }),
+   
     likes:many(likes),
     comments:many(comments)
 }))
-export const filesRelations=relations(
-    files,({one})=>({
-        yearbook:one(yearbooks,{
-            fields: [files.yearbook_id],
-            references: [yearbooks.id],
-        })
-    })
-)
 export const comments=createTable(
     'comment',{
         id:bigint('id',{mode:"number"}).primaryKey().autoincrement(),
         content:text('content').notNull(),
-        author:bigint('author_id',{mode:'number'}),
+        author:bigint('author_id',{mode:'number'}).references(() => users.id).notNull(),
         createdAt:timestamp("created_at")
             .default(sql`CURRENT_TIMESTAMP`)
             .notNull(),
-        yearbook:bigint('yearbook_id',{mode:'number'}),
+        yearbook:bigint('yearbook_id',{mode:'number'}).references(() => yearbooks.id).notNull(),
     },(table)=>{
         return{
             nameIdx:index("name_idx").on(table.author)
@@ -105,26 +98,38 @@ export const comments=createTable(
 export const commentsRelations=relations(
     comments,({many,one})=>({
         yearbook:many(yearbooks),
-        author:one(users,{
-            fields:[comments.author],
-            references:[users.id]
-        })
+       
+
     }),
 )
 export const likes=createTable(
     'like',{
         id:bigint('id',{mode:"number"}).primaryKey().autoincrement(),
-        author:bigint('author_id',{mode:'number'}),
+        author:bigint('author_id',{mode:'number'}).references(() => users.id).notNull(),
         createdAt:timestamp("created_at")
             .default(sql`CURRENT_TIMESTAMP`)
             .notNull(),
-        yearbook:bigint('yearbook_id',{mode:'number'}).notNull(),
+        yearbook:bigint('yearbook_id',{mode:'number'}).references(() => yearbooks.id).notNull(),
     },(table)=>{
         return{
             nameIdx:index("name_idx").on(table.author)
         }
     }
 )
+export const yearbooksToComments = createTable(
+    'yearbooksToComment',
+    {
+      yearbook_id: bigint('yearbook_id',{mode:'number'})
+        .notNull()
+        .references(() => yearbooks.id),
+      comment_id: bigint('comment_id',{mode:'number'})
+        .notNull()
+        .references(() => comments.id),
+    },
+    (t) => ({
+      pk: primaryKey({ columns: [t.yearbook_id, t.comment_id] }),
+    }),
+  );
 export const likesRelations=relations(
     likes,({one})=>({
         yearbooks:one(yearbooks,{

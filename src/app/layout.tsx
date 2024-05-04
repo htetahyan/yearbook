@@ -1,7 +1,6 @@
 import "~/styles/globals.css";
 
 import localFont from "next/font/local";
-import Header from "~/app/_components/general/Header";
 import { Toaster } from "sonner";
 
 

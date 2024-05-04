@@ -88,12 +88,12 @@ path:'join'|'login'
                     <div><label  className={'text-2xl'}>
                         Email
                     </label>
-                        <Input onChange={formik.handleChange} name={'email'} type={'email'} className={'text-black'}/>
+                        <Input onChange={formik.handleChange}  autoComplete='off' value={formik.values.email} name={'email'} type={'email'} className={'text-black'}/>
                     </div>
                     <div><label className={'text-2xl'}>
                         Password
                     </label>
-                        <Input onChange={formik.handleChange} name={'password'} type={'password'} className={'text-black'}/>
+                        <Input value={formik.values.password} autoComplete={path === 'join' ? 'new-password' : 'current-password'} onChange={formik.handleChange} name={'password'} type={'password'} className={'text-black'}/>
                     </div>
               
                     <Button >

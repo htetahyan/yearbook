@@ -3,7 +3,7 @@ import Image, {StaticImageData} from 'next/image';
 
 import { useInView } from 'react-intersection-observer';
 
-export default function StaticImage({src,className}:{src:StaticImageData,className?:string}) {
+export default function StaticImage({src,alt}:{src:StaticImageData | string ,alt?:string}) {
 
     const { ref, inView } = useInView({
         triggerOnce: true,
@@ -17,7 +17,7 @@ export default function StaticImage({src,className}:{src:StaticImageData,classNa
                     ref={ref}
                     src={src}
 quality={100}                    fill
-                    alt="image"
+                    alt={alt ?? 'image'}
 fetchPriority={'high'}
                     style={{
                         opacity: inView ? 1 : 0,
