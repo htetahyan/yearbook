@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from '~/app/_components/Button';
 import StaticImage from '~/app/_components/general/StaticImage';
 import { staticLogo } from '~/assets/exporter';
+import Like from './Like';
 
 const Card = ({image}:{image:string}) => {
   return (
@@ -27,9 +28,7 @@ const Card = ({image}:{image:string}) => {
     
     </div>
     <div >
-        <Button>
-            Like
-            </Button>
+        <Like/>
      </div>
     </div>
   );

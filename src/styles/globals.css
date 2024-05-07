@@ -42,3 +42,8 @@ overflow-x: hidden;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 
 }
+.like-svg {
+    stroke: black; /* Outline color */
+    fill: none; /* Remove fill */
+    stroke-width: 2; /* Adjust the outline width */
+  }

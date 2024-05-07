@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
 export const GET=async(req:NextRequest)=>{
     const { searchParams } = new URL(req.url)

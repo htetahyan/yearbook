@@ -8,6 +8,8 @@ import noti from 'public/noti.svg'
 import setting from 'public/setting.svg'
 import home from 'public/home.svg'
 import vip from 'public/vip.svg'
+import like_filled from 'public/like-filled.svg'
+import like_outline from 'public/like-outline.svg'
 const logo= 'logo.svg'
 
 const students01 = '/students01.jpg'
@@ -16,5 +18,5 @@ const students03 = '/students03.jpg'
 
 
 
-export {logo,students01,students02,students03,scrollImage,
+export {logo,students01,students02,students03,scrollImage,like_filled,like_outline,
     students04,loader01,google,staticLogo,profile,noti,home,setting, vip}
