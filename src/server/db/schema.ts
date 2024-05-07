@@ -76,7 +76,7 @@ export const files=createTable('files',{
 })
 export const yearbooksRelations=relations(yearbooks,({many,one})=>({
     files:many(files),
-   
+
     likes:many(likes),
     comments:many(comments)
 }))
@@ -98,7 +98,7 @@ export const comments=createTable(
 export const commentsRelations=relations(
     comments,({many,one})=>({
         yearbook:many(yearbooks),
-       
+
 
     }),
 )
@@ -147,3 +147,4 @@ export const likesRelations=relations(
 
 
 export type NewUser = typeof users.$inferInsert;
+export type NewLike = typeof likes.$inferInsert;

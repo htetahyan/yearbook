@@ -1,7 +1,7 @@
 import {eq} from "drizzle-orm"
 import {db} from "../db"
 import {NewUser, users} from "../db/schema"
-import jose, {SignJWT} from 'jose'
+import jose, {jwtVerify, SignJWT} from 'jose'
 import bcrypt from 'bcryptjs';
 import {ResponseCookie} from "next/dist/compiled/@edge-runtime/cookies";
 import 'server-only'
@@ -17,9 +17,9 @@ export const insertUser = async (user: NewUser) => {
     return db.insert(users).values(user);
   }
  export const hashPassword =  (password: string) => {
-    var salt = bcrypt.genSaltSync(10);
+    const salt = bcrypt.genSaltSync(10);
 return  bcrypt.hashSync(password, salt);
- 
+
  }
  export const comparePassword = (password: string, hash: string) => {
     return bcrypt.compareSync(password, hash);
@@ -36,12 +36,12 @@ return  bcrypt.hashSync(password, salt);
  const secretKey=new TextEncoder().encode(process.env.JWT_SECRET)
  export const generateToken =async (user: any) => {
     try {
-        return await new SignJWT({email: user.email})
+        return await new SignJWT({email: user.email, id: user.id})
             .setProtectedHeader({alg: "HS256"})
             .setIssuedAt()
             .setIssuer("https://example.com")
             .setAudience("https://example.com")
-            .setExpirationTime("1h")
+            .setExpirationTime("1min")
             .sign(secretKey)
     }catch (error:any) {
 throw new Error (error.message)
@@ -53,17 +53,19 @@ throw new Error (error.message)
  }
 
  export const verifyToken = async (token: string) => {
-  const {  payload} =   await jose.jwtVerify(token,secretKey,{
+  const {  payload} =   await jwtVerify(token,secretKey,{
         issuer: "https://example.com",
         audience:'https://example.com'
      });
+
 return payload
  }
+
  export const tokenCookiesOptions:Partial<ResponseCookie> = {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
-    maxAge: 60 * 60 * 24 * 7, 
+    maxAge: 60 * 60 * 24 * 7,
     path: "/",
     domain: "localhost",
 

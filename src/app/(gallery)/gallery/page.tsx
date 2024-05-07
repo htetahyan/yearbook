@@ -5,7 +5,7 @@ import { files, yearbooks } from '~/server/db/schema';
 import { eq } from 'drizzle-orm';
 
 const Page = async() => {
-    
+
 const cards= await db.select().from(yearbooks).rightJoin(files, eq(files.yearbook_id,yearbooks.id)).limit(10);
 
 console.log(cards);

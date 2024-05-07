@@ -5,7 +5,8 @@ import { generateToken, loginUser, tokenCookiesOptions } from "~/server/auth/act
 export const POST=async(req:NextRequest)=>{
     const {email,password}=await req.json()
     try {
-     const user= await loginUser(email,password) 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+     const user= await loginUser(email,password)
      const token=await generateToken(user)
         cookies().set('token',token,tokenCookiesOptions)
         return NextResponse.json({message:'Login successful'},{status:200})
