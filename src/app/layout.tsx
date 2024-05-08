@@ -2,6 +2,7 @@ import "~/styles/globals.css";
 
 import localFont from "next/font/local";
 import { Toaster } from "sonner";
+import Providers from "./_components/providers/ReactQueryClient";
 
 
 const juma=localFont({
@@ -26,6 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+  <Providers>
     <html lang="en">
       <body className={` ${juma.variable} ${rogBold.variable}
       font-primary bg-fixed
@@ -50,5 +52,6 @@ color:'white'
 />
       {children}</body>
     </html>
+    </Providers>
   );
 }

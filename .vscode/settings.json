@@ -13,5 +13,7 @@
             "group": "yearbook",
             "connectString": "mysql://edusn:yearbook@62.72.58.176:3306/yearbookdb"
         }
-    ]
+    ],
+    "IDX.webDevTools": true,
+    "IDX.enableIntegrationsPanel": true
 }
