@@ -5,8 +5,29 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1714810776104,
-      "tag": "0000_known_silvermane",
+      "when": 1715398337479,
+      "tag": "0000_uneven_boomer",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1715400375113,
+      "tag": "0001_empty_the_spike",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1715671916257,
+      "tag": "0002_wild_masked_marvel",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1715914032708,
+      "tag": "0003_flaky_korvac",
       "breakpoints": true
     }
   ]

@@ -14,6 +14,7 @@ import Link from 'next/link';
 import { logo, staticLogo } from '~/assets/exporter';
 
 import StaticImage from '../general/StaticImage';
+import {useJoinMutation, useLoginMutation} from "~/server/query/authApi";
 interface MyFormValues {
    email:string;
    password:string
@@ -24,50 +25,25 @@ path:'join'|'login'
     const initialValues: MyFormValues = { email: '',password:'' };
 
  const GeneralForm: React.FC<props> = ({path}) => {
-    const submit=(values:MyFormValues,actions:any)=> {
+     const [join]=useJoinMutation()
+     const [login]=useLoginMutation()
+    const submit=async (values:MyFormValues)=> {
         const captchaValue = recaptcha?.current?.getValue()
         console.log(values);
 
-    if (!captchaValue) {
-    toast.error('Please verify you are not a bot')
+        if (!captchaValue) {
+            toast.error('Please verify you are not a bot')
 
-    } else {
+        } else {
 
-
-    toast.promise(
-    // Declare a variable in a broader scope
-
-       new Promise(async (resolve, reject) => {
-       try {
-          const response = await fetch(`/api/auth/email/${path}`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(values),
-          });
-      const data = await response.json();
-
-          if (!response.ok) {
-            throw new Error(data.message);
-          }
-          resolve(data); // Resolve the promise with the data
-
-       } catch (error) {
-
-          reject(error); // Reject the promise with the error
-       }
-      }),
-
-
-    {
-    loading:'Loading',
-    success:path === 'join' ? 'User created successfully' : 'User logged in successfully',
-    error:(res)=> res.message
-    })
-
+            if (path === 'join') {
+                await join(values)
+            } else {
+                await login(values)
+            }
+        }
     }
-    }
+
     const formik=useFormik({
         initialValues,
         onSubmit:submit

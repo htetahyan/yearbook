@@ -2,12 +2,16 @@ import "~/styles/globals.css";
 
 import localFont from "next/font/local";
 import { Toaster } from "sonner";
-import Providers from "./_components/providers/ReactQueryClient";
+import StoreProvider from "./_components/providers/Provider";
+const neueMontreal=localFont({
+    src: '../../public/fonts/NeueMontreal-Regular.woff2',
+    variable:'--font-neue',
 
-
-const juma=localFont({
-  src: '../../public/fonts/juma.ttf',
-  variable:'--font-juma',
+    preload: true
+})
+const neueMontrealBold=localFont({
+  src: '../../public/fonts/NeueMontreal-Bold.woff2',
+  variable:'--font-neue-bold',
   preload: true
 })
 const rogBold=localFont({
@@ -27,31 +31,36 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-  <Providers>
+
     <html lang="en">
-      <body className={` ${juma.variable} ${rogBold.variable}
+    <Toaster
+        richColors
+        position="top-center"
+        closeButton
+        toastOptions={{
+
+            style:{
+
+                backdropFilter:"blur(20px)",
+                background:'transparent',
+
+                color:'white'
+            }
+        }}
+    />
+
+    <StoreProvider>
+      <body className={` ${neueMontreal.variable} ${neueMontrealBold.variable} ${rogBold.variable}
       font-primary bg-fixed
 bg-gradient-to-br from-[#2e026d] via-[#0e1129] to-[#2e026d]
 text-white
 min-h-screen
       `}>
-             <Toaster
-             richColors
- position="top-center"
- closeButton
-toastOptions={{
 
-style:{
-
-  backdropFilter:"blur(20px)",
- background:'transparent',
-
-color:'white'
-}
-}}
-/>
-      {children}</body>
+      {children}
+    </body>
+</StoreProvider>
     </html>
-    </Providers>
+
   );
 }

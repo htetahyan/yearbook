@@ -15,6 +15,9 @@ const config = {
             {
                 protocol: "https",
                 hostname: "plus.unsplash.com",
+            },{
+            protocol: "https",
+            hostname: "backend-edusn.s3.ap-south-1.amazonaws.com",
             }
         ],
     }

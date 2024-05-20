@@ -30,10 +30,10 @@ duration:0.8,
         })
     },{scope:container})
     return (
-        <div ref={container} className={'flex items-center gap-2 h-fit' }>
+        <div ref={container} className={'flex items-center gap-2 h-fit will-change-transform' }>
             {text.split('').map((char, index) => (
                 <h2
-                    className={className+'  opacity-0 font-secondary translate-y-1/2'}
+                    className={className+'  opacity-0 font-secondary translate-y-1/2 will-change-transform'}
                     ref={el =>{
                         if (el) {
                             textRefs.current.push(el as unknown as string)

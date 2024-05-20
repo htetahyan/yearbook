@@ -33,7 +33,7 @@ overflow-x: hidden;
 }
 .text-gradient02{
     color: transparent;
-    background: linear-gradient(90deg, #ffd001 0%, rgba(1, 255, 191, 0.84) 100%);
+    background: linear-gradient(90deg, #1bfaa5 0%, rgba(169, 75, 215, 0.84) 100%);
     background-clip: text;
 }
 .glassBg{

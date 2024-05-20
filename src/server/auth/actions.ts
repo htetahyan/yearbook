@@ -1,10 +1,10 @@
 import {eq} from "drizzle-orm"
 import {db} from "../db"
 import {NewUser, users} from "../db/schema"
-import jose, {jwtVerify, SignJWT} from 'jose'
+import {jwtDecrypt, jwtVerify, SignJWT} from 'jose'
 import bcrypt from 'bcryptjs';
 import {ResponseCookie} from "next/dist/compiled/@edge-runtime/cookies";
-import 'server-only'
+
 
 export const checkUserExists = async (email: string) => {
     const res=await db.query.users.findFirst({
@@ -41,7 +41,7 @@ return  bcrypt.hashSync(password, salt);
             .setIssuedAt()
             .setIssuer("https://example.com")
             .setAudience("https://example.com")
-            .setExpirationTime("1min")
+            .setExpirationTime("1d")
             .sign(secretKey)
     }catch (error:any) {
 throw new Error (error.message)
@@ -49,16 +49,19 @@ throw new Error (error.message)
 
  }
  export const decodeToken = async (token: string) => {
-     return await jose.jwtDecrypt(token,secretKey);
+     return await jwtDecrypt(token,secretKey);
  }
 
  export const verifyToken = async (token: string) => {
-  const {  payload} =   await jwtVerify(token,secretKey,{
-        issuer: "https://example.com",
-        audience:'https://example.com'
+ try {
+     const {  payload} =   await jwtVerify(token,secretKey,{
+         issuer: "https://example.com",
+         audience:'https://example.com'
      });
-
-return payload
+     return payload
+ } catch (error:any) {
+     throw new Error(error.message)
+ }
  }
 
  export const tokenCookiesOptions:Partial<ResponseCookie> = {

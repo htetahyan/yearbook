@@ -45,10 +45,15 @@ export const yearbooks=createTable(
     {
         id:bigint("id",{mode:"number"}).primaryKey().autoincrement(),
         name:varchar("name",{length:256}).notNull(),
+        academicYear:varchar("academicYear",{length:256}).notNull(),
+        campus:varchar("campus",{length:256}).notNull(),
+        border:varchar("border",{length:256}).notNull(),
+
         caption:varchar("caption",{length:256}).notNull(),
         student_id:varchar('student_id',{length:256}).notNull(),
-author_id: bigint('author_id',{mode:'number'}).references(() => users.id).notNull(),
-createdAt:timestamp("created_at")
+        total_likes:bigint('total_likes',{mode:'number'}).default(0).notNull(),
+        author_id: bigint('author_id',{mode:'number'}).references(() => users.id).notNull(),
+        createdAt:timestamp("created_at")
             .default(sql`CURRENT_TIMESTAMP`)
             .notNull(),
     },
@@ -61,7 +66,7 @@ createdAt:timestamp("created_at")
 )
 export const usersRelations=relations(
     users,({one,many})=>({
-      yearbooks:one(yearbooks),
+        yearbooks:one(yearbooks),
         likes:many(likes),
         comments:many(comments)
 
@@ -71,11 +76,12 @@ export const usersRelations=relations(
 export const files=createTable('files',{
     id:bigint('id',{mode:"number"}).primaryKey().autoincrement(),
     url:varchar('url',{length:256}).notNull()
-    ,size:bigint('size',{mode:'number'}).notNull(),
+  ,
     yearbook_id:bigint('yearbook_id',{mode:'number'}).references(() => yearbooks.id).notNull()
 })
 export const yearbooksRelations=relations(yearbooks,({many,one})=>({
     files:many(files),
+
 
     likes:many(likes),
     comments:many(comments)
@@ -119,17 +125,17 @@ export const likes=createTable(
 export const yearbooksToComments = createTable(
     'yearbooksToComment',
     {
-      yearbook_id: bigint('yearbook_id',{mode:'number'})
-        .notNull()
-        .references(() => yearbooks.id),
-      comment_id: bigint('comment_id',{mode:'number'})
-        .notNull()
-        .references(() => comments.id),
+        yearbook_id: bigint('yearbook_id',{mode:'number'})
+            .notNull()
+            .references(() => yearbooks.id),
+        comment_id: bigint('comment_id',{mode:'number'})
+            .notNull()
+            .references(() => comments.id),
     },
     (t) => ({
-      pk: primaryKey({ columns: [t.yearbook_id, t.comment_id] }),
+        pk: primaryKey({ columns: [t.yearbook_id, t.comment_id] }),
     }),
-  );
+);
 export const likesRelations=relations(
     likes,({one})=>({
         yearbooks:one(yearbooks,{
@@ -148,3 +154,4 @@ export const likesRelations=relations(
 
 export type NewUser = typeof users.$inferInsert;
 export type NewLike = typeof likes.$inferInsert;
+export type InsertCard=typeof yearbooks.$inferInsert

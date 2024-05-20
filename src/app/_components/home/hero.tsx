@@ -11,16 +11,16 @@ const Hero = () => {
         <div  className={'h-[85vh] relative'}>
             <div
                 className={'  text-center md:text-8xl text-6xl lg:text-9xl h-full flex flex-col justify-center items-center'}>
-                <TextReveal from={'center'} duration={0.3} ease={'power3.in'} spanClassName={'opacity-0 drop-shadow-smallGlow translate-y-1/3'}
-                            className={' bg-gradient-to-r from-yellow-500 to-teal-400 bg-clip-text text-transparent '} text={'Welcome  to'}/>
+                <TextReveal from={'center'} duration={0.3} ease={'power3.in'} spanClassName={'opacity-0  will-change-transform drop-shadow-smallGlow translate-y-1/3'}
+                            className={' bg-gradient-to-r from-yellow-500 to-teal-400 bg-clip-text text-transparent will-change-transform'} text={'Welcome  to'}/>
 
 <h1  className={' drop-shadow-glow'}>
     Edusn Digital School
 </h1>
              <TextReveal text={'Yearbook'}
-                         duration={0.2} delay={0.8} ease={'power2.in'} spanClassName={'opacity-0 scale-75 drop-shadow-smallGlow '}
+                         duration={0.2} delay={0.8} ease={'power2.in'} spanClassName={'opacity-0 will-change-transform scale-75 drop-shadow-smallGlow '}
 
-                         className={' bg-gradient-to-r  from-indigo-500 to-yellow-500 bg-clip-text text-transparent'}/>
+                         className={' bg-gradient-to-r  from-indigo-500 to-yellow-500 bg-clip-text will-change-transform text-transparent'}/>
 
                 <div className={'text-7xl w-full justify-center h-1/6 flex items-center'}>
                  <h2 className={'font-secondary text-3xl md:text-4xl'}>scroll</h2>

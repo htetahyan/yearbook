@@ -12,6 +12,10 @@ export const env = createEnv({
       .enum(["development", "test", "production"])
       .default("development"),
     DOMAIN: z.string().url(),
+      S3_BUCKET_NAME: z.string(),
+      S3_BUCKET_REGION: z.string(),
+      S3_ACCESS_KEY: z.string(),
+      S3_SECRET_KEY: z.string(),
   },
 
   /**
@@ -31,6 +35,10 @@ export const env = createEnv({
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
       DOMAIN: process.env.DOMAIN,
+      S3_ACCESS_KEY: process.env.S3_ACCESS_KEY,
+      S3_SECRET_KEY: process.env.S3_SECRET_KEY,
+      S3_BUCKET_NAME: process.env.S3_BUCKET_NAME,
+      S3_BUCKET_REGION: process.env.S3_BUCKET_REGION
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**

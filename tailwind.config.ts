@@ -20,7 +20,8 @@ export default {
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
-        primary: ["var(--font-juma)"],
+        primary: ["var(--font-neue-bold)"],
+          primaryRegular: ["var(--font-neue-bold)"],
         secondary: ["var(--font-rog-bold)"],
       },
     },

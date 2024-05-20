@@ -9,7 +9,7 @@ const btnVariants = cva(
             variant: {
                 primary: 'bg-gradient-to-r from-blue-600 to-violet-600 text-white font-bold py-2 px-4 rounded shadow-md hover:shadow-lg transition-all',
                 secondary: 'bg-gradient-to-r from-indigo-500 to-red-400 text-white font-bold py-2 px-4 rounded shadow hover:shadow-md transition-all',
-                danger: 'bg-gradient-to-br from-[#ff3030] via-[#ff4747] to-[#ff3030] text-white font-bold py-2 px-4 rounded shadow-md hover:shadow-lg transition-all',
+                danger: 'bg-gradient-to-br from-[#ff3030] via-[#ff4747] to-[#ff6080] text-white font-bold py-2 px-4 rounded shadow-md hover:shadow-lg transition-all',
                 success: 'bg-[#0e1129] text-white font-bold py-2 px-4 rounded shadow-md hover:shadow-lg transition-all',
                 warning: 'bg-gradient-to-br from-[#ffd166] via-[#ffb54a] to-[#ffd166] text-black font-bold py-2 px-4 rounded shadow-md hover:shadow-lg transition-all',
                 border: 'border border-blue-500 text-blue-500 font-bold py-2 px-4 rounded shadow-md hover:shadow-lg transition-all',

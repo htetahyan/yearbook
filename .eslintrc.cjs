@@ -16,6 +16,11 @@ const config = {
   "rules": {
     "@typescript-eslint/no-explicit-any":"off",
       "@typescript-eslint/no-unsafe-argument": "off",
+      "@typescript-eslint/non-nullable-type-assertion-style":"off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
+    "@typescript-eslint/no-empty-interface":"off",
+    "react/no-unescaped-entities": "off",
     "@typescript-eslint/no-unsafe-call": "off",
     "@typescript-eslint/no-unsafe-return": "off",
     "@typescript-eslint/array-type": "off",

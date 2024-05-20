@@ -59,8 +59,8 @@ tl.to(textRefs.current,{
     },{scope:container})
     return (
         <div ref={container} className={'h-[500px]'}>
-          <div className={'flex items-center'}> <SteadyText className={'text-5xl md:text-7xl lg:text-8xl'} text={'/Our Yearbook'}/>
-              <Image ref={loaderRef} src={loader01} alt={'loader'} className={'w-16'}/>
+          <div className={'flex items-center'}> <SteadyText className={'text-5xl md:text-7xl lg:text-8xl '} text={'/Our Yearbook'}/>
+              <Image ref={loaderRef} src={loader01} alt={'loader'} className={'w-16 will-change-transform'}/>
           </div>
             <div className={' text-3xl lg:text-4xl uppercase relative h-3/4 mt-10  p-2 w-screen'}>
                 <h2
@@ -69,7 +69,7 @@ tl.to(textRefs.current,{
                             textRefs.current.push(el as unknown as HTMLHeadingElement)
                         }
                     }}
-                    className={'absolute bottom-10 left-10'}>
+                    className={'absolute bottom-10 left-10 will-change-transform'}>
                     Cherished Moments
                 </h2>
                 <h2
@@ -87,13 +87,13 @@ tl.to(textRefs.current,{
                             textRefs.current.push(el as unknown as HTMLHeadingElement)
                         }
                     }}
-                    className={'absolute top-1/4 right-10'}>
+                    className={'absolute top-1/4 right-10 will-change-transform'}>
                     Memories That Last a Lifetime
                 </h2>
-                <div ref={imageWrapperRef} className={'absolute left-0 overflow-hidden bottom-1/4'}>
+                <div ref={imageWrapperRef} className={'absolute will-change-transform left-0 overflow-hidden bottom-1/4'}>
                     <div
                         ref={imageRef}
-                        className={'h-48 w-72 relative bg-amber-400'}>
+                        className={'h-48 w-72 relative bg-amber-400 will-change-transform'}>
                         <StaticImage src={students04}/>
                     </div>
                 </div>
