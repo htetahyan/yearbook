@@ -16,6 +16,7 @@ export const env = createEnv({
       S3_BUCKET_REGION: z.string(),
       S3_ACCESS_KEY: z.string(),
       S3_SECRET_KEY: z.string(),
+     REDIS_URL: z.string()
   },
 
   /**
@@ -35,6 +36,7 @@ export const env = createEnv({
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
       DOMAIN: process.env.DOMAIN,
+     REDIS_URL: process.env.REDIS_URL,
       S3_ACCESS_KEY: process.env.S3_ACCESS_KEY,
       S3_SECRET_KEY: process.env.S3_SECRET_KEY,
       S3_BUCKET_NAME: process.env.S3_BUCKET_NAME,

@@ -16,6 +16,7 @@ import delete_icon from 'public/delete.svg'
 import back_Icon from 'public/back.svg'
 import expand_icon from 'public/expand.svg'
 import comment_icon from 'public/comment.svg'
+import filter_icon from 'public/filter.svg'
 const logo= 'logo.svg'
 
 const students01 = '/students01.jpg'
@@ -24,7 +25,7 @@ const students03 = '/students03.jpg'
 
 
 
-export {logo,students01,students02,students03,scrollImage,like_filled,like_outline,back_Icon,comment_icon,
+export {logo,students01,students02,students03,scrollImage,like_filled,like_outline,back_Icon,comment_icon,filter_icon,
     students04,loader01,google,staticLogo,profile,noti,home,setting, vip,expand_icon
 ,email,password,delete_icon
 }

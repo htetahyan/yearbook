@@ -10,8 +10,8 @@ const galleryApi=BASE_API.injectEndpoints({
              method: "GET",
 
          }),
-         transformResponse: (response: any) => response.data as CardsType,
-         providesTags:(result)=>(result ?result.map((card)=>({type:'cards',id:card.yearbook!.id})):['cards']),
+         transformResponse: (response: any) => response.data as CardsType&{total:number},
+         providesTags:(result)=>(result ?result.cards.map((card)=>({type:'cards',id:card.yearbook!.id})):['cards']),
      }),
      getCards: builder.query({
          query: ({limit,offset,filter}) => ({
@@ -19,20 +19,19 @@ const galleryApi=BASE_API.injectEndpoints({
              method: "GET",
              params: {limit,offset,filter},
 
-
          }),
-         keepUnusedDataFor: 60,
-         transformResponse: (response: any) => response.data as CardsType,
-      providesTags:(result)=>(result ?result.map((card)=>({type:'cards',id:card.yearbook!.id})):['cards']),
+
+         transformResponse: (response: any) => response?.data as CardsType&{total:number},
+      providesTags:(result,error,arg)=>(result ?result?.cards?.map((card)=>({type:'cards',id:card.yearbook?.id,filter:arg.filter})):['cards']),
      }),
      toggleLike: builder.mutation({
          query: (id) => ({
              url: "/gallery/like",
              method: "POST",
-             params: {cardId: id}
+             params: {cardId: id},
 
          }),
-         invalidatesTags: (result, error, arg) => [{ type: 'cards', id: arg }],
+         invalidatesTags: ['cards'],
 
      }),getLikes: builder.query({
          query: () => ({

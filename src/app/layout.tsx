@@ -31,8 +31,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-
-    <html lang="en">
+<StoreProvider>
+    <html lang="en" suppressHydrationWarning={true}>
     <Toaster
         richColors
         position="top-center"
@@ -49,7 +49,7 @@ export default function RootLayout({
         }}
     />
 
-    <StoreProvider>
+
       <body className={` ${neueMontreal.variable} ${neueMontrealBold.variable} ${rogBold.variable}
       font-primary bg-fixed
 bg-gradient-to-br from-[#2e026d] via-[#0e1129] to-[#2e026d]
@@ -59,8 +59,8 @@ min-h-screen
 
       {children}
     </body>
-</StoreProvider>
-    </html>
 
+    </html>
+</StoreProvider>
   );
 }

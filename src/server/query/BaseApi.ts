@@ -15,7 +15,7 @@ export const BASE_API = createApi({
     reducerPath: 'BASE_API',
     baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/api' }),
 
-    tagTypes: ['cards','likes','users'],
+    tagTypes: ['cards','likes','users','comments'],
     endpoints: (builder) => ({
 
     }),

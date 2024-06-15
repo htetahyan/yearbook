@@ -17,12 +17,13 @@ export default function RootLayout({
         <body className={``}>
 
             <Header/>
-            <div className={'w-screen flex justify-center h-page'}>
-            <div className={'w-4/5 flex justify-center  h-full'}>
+
+
 
         {children}
+            <div className={'w-screen flex justify-center h-fit'}>
         <FooterNavigation/>
-            </div></div>
+           </div>
        </body>
         </html>
     );

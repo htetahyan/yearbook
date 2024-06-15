@@ -16,6 +16,7 @@ image:string,caption:string,liked:boolean,name:string,id:number
     grade:string,
     campus : string,
     studentId:string,
+    total_likes?:number
     isPreview?:boolean}
 
 interface TextRefProps {
@@ -30,7 +31,7 @@ interface DetailRefProps{
 
     details:HTMLDivElement[] | null
 }
-const Card :FC<Props> = ({ image, caption, liked, name, id,academicYear,campus,studentId,grade, isPreview }) => {
+const Card :FC<Props> = ({ image, caption, liked, name, id,academicYear,campus,studentId,grade, isPreview,total_likes }) => {
     const imageRef = React.useRef<HTMLImageElement>(null);
     const textRefs = React.useRef<TextRefProps>({ container: null, name: null, caption: null });
    const detailRef=React.useRef<DetailRefProps>({
@@ -111,7 +112,7 @@ if(modalRef.current ) {
 
     };
     return (
-        <div ref={modalRef} className='w-fit will-change-transform h-fit p-1 glassBg   relative  rounded-md  border-2 bg-black border-indigo-300'>
+        <div ref={modalRef} className='w-fit will-change-transform h-fit p-1 glassBg     rounded-md  border-2 bg-black border-indigo-300'>
             <div className={'absolute rounded-full cursor-pointer -top-2 z-10 -right-2 p-2  bg-[#0e1129] border-2 '}>
 <div onClick={toggleExtendCard} className={'   relative w-[20px] h-[20px] '}><StaticImage src={expand_icon}/></div></div>
             <div ref={(el)=>{
@@ -151,9 +152,9 @@ if(modalRef.current ) {
 
             <div className={'w-full'}>
                 {isPreview === true ? <h1 className='w-full text-center'>Preview</h1> :(
-                    <div className={'w-full grid grid-cols-3 gap-1 place-items-center'}>  <Like like={liked} id={id} />
-                        <Like like={liked} id={id} />
-                       <Comment/>
+                    <div className={'w-full grid grid-cols-3 gap-1 place-items-center'}>
+                        <Like like={liked} id={id} total_likes={total_likes ?? 0} />
+                       <Comment id={id}/>
                     </div>
                         )}
             </div>

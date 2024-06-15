@@ -8,6 +8,7 @@ const config = {
     connectionLimit: 20,
     queueLimit: 0,
 
+
     ssl:{
         rejectUnauthorized: false,
 
@@ -22,8 +23,15 @@ export async function initDb() {
 
 
 }
-export const db=await initDb().catch((e)=>{throw new Error('s')})
-/*await migrate(db, { migrationsFolder: './src/server/db/migrations'});
+export const db=await initDb().catch(async (e)=>{
+    await client.end()
+
+    throw new Error('Could not connect at the moment, please try again later')
+})
+
+/*
+ await migrate(db, { migrationsFolder: './src/server/db/migrations'});
 
 // Don't forget to close the connection, otherwise the script will hang
-    await client.end();*/
+    await client.end();
+*/

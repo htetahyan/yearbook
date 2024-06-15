@@ -6,9 +6,10 @@ import {Filter} from "../type";
 import {and} from "drizzle-orm/sql/expressions/conditions";
 import {revalidateTag} from "next/cache";
 import {desc} from "drizzle-orm/sql/expressions/select";
-import {getCardsStatement} from "~/server/db/PrepareStatements";
+import {getCardsCounts, getCardsStatement} from "~/server/db/PrepareStatements";
 import {NewCard} from "~/slices/cardSlice";
 import {cache} from "react";
+import {redis} from "~/server/cache/redis";
 
 // Define interface Get as a constant
 interface  Get {
@@ -25,60 +26,68 @@ export type Card = CardType<CardsType, 0>; // Adjust the index as needed
 export const getCardsFromGallery = async ({ limit=10, offset=0, filter='newest' }:  Get & { filter?: Filter }) => {
  switch (filter) {
      case 'newest':
-         return await getCardsConstant({limit,offset,orderBy:asc(yearbooks.createdAt)});
-     case 'oldest':
          return await getCardsConstant({limit,offset,orderBy:desc(yearbooks.createdAt)});
+     case 'oldest':
+         return await getCardsConstant({limit,offset,orderBy:asc(yearbooks.createdAt)});
   case'a-z':
-      return await getCardsConstant({limit,offset,orderBy:asc(yearbooks.name)});
-  case'z-a':
       return await getCardsConstant({limit,offset,orderBy:desc(yearbooks.name)});
+  case'z-a':
+      return await getCardsConstant({limit,offset,orderBy:asc(yearbooks.name)});
+ case 'popular':
+
+     return await getCardsConstant({limit,offset,orderBy:desc(yearbooks.total_likes)});
+     case 'liked':
+         return await getCardsConstant({limit,offset,orderBy:desc(yearbooks.total_likes)});
 
  }
 
 };
-const getCardsConstant=async({limit,offset,orderBy}:{limit:number,offset:number,orderBy:any})=>{
-
-  return await  getCardsStatement(limit,offset,orderBy).execute()
-
-}
-export const likeCard = async (id: number, userId: number) => {
+const getCardsConstant=cache(async({limit,offset,orderBy}:{limit:number,offset:number,orderBy:any})=>{
+const count=await getCardsCounts(orderBy) || 0
+  const cards= await  getCardsStatement(limit,offset,orderBy).execute()
+       return {cards,count}
+})
+export const likeCard = async (card: any, userId: number) => {
    try {
-       const card = await db.select().from(yearbooks).where(eq(yearbooks.id, id))
-
-       if (card.length === 0) {
-           throw new Error('Card not found')
-       }
        const newLike: NewLike = {
            author: userId,
-           yearbook: id
-
+           yearbook: card[0]!.id
        }
-       await db.insert(likes).values(newLike)
+
+       await db.transaction(async (tx) => {
+           await tx.update(yearbooks).set({total_likes: card[0]!.total_likes + 1}).where(eq(yearbooks.id, card[0]!.id))
+           await tx.insert(likes).values(newLike)
+       })
+
    }
    catch (error: any) {
        throw new Error(error.message || 'Failed to like card, please try again')
    }
 }
-export const unlikeCard = async (id: number, userId: number) => {
+export const unlikeCard = async (card: any, userId: number) => {
     try {
-        const card = await db.select().from(yearbooks).where(eq(yearbooks.id, id))
-        if (card.length === 0) {
-            throw new Error('Card not found')
-        }
- await db.delete(likes).where(and(eq(likes.author, userId), eq(likes.yearbook, id))).finally(() => revalidateTag('gallery'))
+await db.transaction( async (tx) => {
+    await tx.update(yearbooks).set({total_likes: card[0]!.total_likes - 1}).where(eq(yearbooks.id, card[0]!.id))
+    await tx.delete(likes).where(and(eq(likes.author, userId), eq(likes.yearbook, card[0].id)))
+})
+
     }
     catch (error: any) {
         throw new Error(error.message || 'Failed to unlike card, please try again')
     }
 }
 export const toggleLike = async (id: number, userId: number) => {
+    const card = await db.select().from(yearbooks).where(eq(yearbooks.id, id))
+    if (card.length === 0) {
+        throw new Error('Card not found')
+    }
 
     const isLiked = await isCurrentUserLiked(id, userId)
     if (isLiked) {
-        await unlikeCard(id, userId)
-        console.log('function runned ')
+        await unlikeCard(card, userId)
+
     } else {
-        await likeCard(id, userId)
+        await likeCard(card, userId)
     }
 }
 export const createYearbookCard = async (data: NewCard,image:string,authorId:number) => {

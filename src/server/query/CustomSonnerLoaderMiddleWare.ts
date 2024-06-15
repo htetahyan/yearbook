@@ -27,7 +27,7 @@ export const CustomSonnerLoaderMiddleWare: Middleware =
         }
         if(isPending(action)){
 
-            toast.loading('Please wait...',{duration:5})
+            toast.loading('Please wait...',{duration:3})
         }
 
         return next(action)

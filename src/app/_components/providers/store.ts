@@ -2,10 +2,12 @@ import { configureStore } from '@reduxjs/toolkit'
 import BASE_API from "~/server/query/BaseApi";
 import {CustomSonnerLoaderMiddleWare} from "~/server/query/CustomSonnerLoaderMiddleWare";
 import cardSliceReducer from "~/slices/cardSlice";
+import filterSliceReducer from "~/slices/filterSlice";
 export const makeStore = () => {
     return configureStore({
         reducer: {
             card: cardSliceReducer,
+            filter:filterSliceReducer,
             // Add the generated reducer as a specific top-level slice
             [BASE_API.reducerPath]: BASE_API.reducer,
         },

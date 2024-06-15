@@ -1,1 +1,1 @@
-export type Filter= 'newest' | 'oldest' | 'a-z' | 'z-a' | 'random' | 'trending' | 'most liked';
+export type Filter= 'newest' | 'oldest' | 'a-z' | 'z-a' | 'popular' | 'liked' ;

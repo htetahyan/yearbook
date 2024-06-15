@@ -3,7 +3,7 @@ const secretKey = '33f7b26a514de636088b310b16d346d43513bc377da9d0c24a2a7be5067c4
 export function encryptPayload(payload: any) {
     // Generate a 16-byte (128-bit) key
 
-    console.log(secretKey)
+ 
     // Generate a random initialization vector
     const iv = crypto.randomBytes(16);
 

@@ -5,7 +5,7 @@ const rateLimitMap = new Map();
 export default async function middleware(req:NextRequest,res:NextResponse) {
     const token = req.cookies.get('refresh_token')?.value
 
-    if(req.method!=='POST'){
+    if(req.method!=='GET'){
         const ip = req.ip
         const limit = 10; // Limiting requests to 5 per minute per IP
         const windowMs = 60 * 1000; // 1 minute
@@ -44,3 +44,4 @@ export const config={
    /* matcher:['/((?!api|_next|favicon.ico).*)']*/
     matcher:['/api/:path*']
 }
+export const runtime='experimental-edge'
