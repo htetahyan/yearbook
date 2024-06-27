@@ -4,10 +4,20 @@ import React from 'react';
 
 
 import dynamic from "next/dynamic";
+import {redirect} from "next/navigation";
 const Cards=dynamic(()=>import("~/app/(gallery)/_gallery_components/card/Cards"),{ssr:false})
 const Filter=dynamic(()=>import("~/app/(gallery)/_gallery_components/card/filter"),{ssr:false})
-const Page = () => {
+const Page = ({ searchParams,}:{searchParams: {[filter: string
+]:
+string | string[] | undefined
+}
+}
+) => {
+  const filter = searchParams.filter;
+    if (filter === null || filter === undefined) {
 
+redirect('/gallery?filter=newest')
+    }
 
 
     return (

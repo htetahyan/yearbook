@@ -40,7 +40,6 @@ const Cropper_Component = () => {
     const onCancel = () => {
         setSelectedFile(null) ;
         closeModal()
-        console.log(selectedFile)
     }
 
     return (

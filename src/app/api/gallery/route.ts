@@ -9,7 +9,7 @@ export const GET=async(req:NextRequest)=>{
         const limit = searchParams.get('limit')
         const offset = searchParams.get('offset')
         const filter = searchParams.get('filter') ?? 'newest'
-        console.log(filter)
+
         const key = `gallery`
                 const {count,cards} = await getCardsFromGallery({ limit: Number(limit), offset: Number(offset), filter: filter as Filter })
 

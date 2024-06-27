@@ -9,10 +9,10 @@ export default function useFetchGallery({ limit, offset, filter }: { limit: numb
 const {cards:dataCards,total}= data as CardsType&{total:number} || {}
     const [hasMore, setHasMore] = useState(true);
     useEffect(() => {
+
         if (isSuccess && dataCards && hasMore) {
             setCards(prev => {
-                // Create a Map to ensure unique cards based on their IDs
-                const cardMap = new Map(prev.map(card => [card.yearbook.id, card]));
+                const cardMap = new Map(prev.map(card => [card?.yearbook?.id, card]));
                dataCards?.forEach(card => {
                     if (card?.yearbook?.id) {
                         cardMap.set(card.yearbook.id, card);
@@ -26,7 +26,7 @@ const {cards:dataCards,total}= data as CardsType&{total:number} || {}
             }
         }
 
-    }, [data, isSuccess,hasMore,offset,total]);
-    console.log(cards.length,total)
+    }, [data, isSuccess,hasMore,offset,total,cards.length,dataCards]);
+
     return { cards, isLoading,isError,hasMore };
 }

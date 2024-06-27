@@ -15,6 +15,7 @@ const config = {
   ],
   "rules": {
     "@typescript-eslint/no-explicit-any":"off",
+      "@typescript-eslint/consistent-indexed-object-style": "off",
       "@typescript-eslint/no-unsafe-argument": "off",
       "@typescript-eslint/non-nullable-type-assertion-style":"off",
     "@typescript-eslint/ban-ts-comment": "off",

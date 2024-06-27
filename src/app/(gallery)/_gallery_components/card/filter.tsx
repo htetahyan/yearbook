@@ -8,15 +8,14 @@ import {setFilter} from "~/slices/filterSlice";
 import {useRouter, useSearchParams} from "next/navigation";
 
 const Filter = () => {
-    const filter=useAppSelector(state => state.filter.filter)
 const searchParams=useSearchParams()
     const filterValue=searchParams.get('filter')
     const radios=['newest','oldest','a-z','z-a','popular','liked']
     const router=useRouter()
-    const dispath=useAppDispatch()
+
     const onChange = (value:string ) => {
  router.push('/gallery?filter='+value)
-        dispath(setFilter(value ))
+
 
     }
 

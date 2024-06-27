@@ -24,6 +24,7 @@ export type Card = CardType<CardsType, 0>; // Adjust the index as needed
 
 // Define getCardsFromGallery function
 export const getCardsFromGallery = async ({ limit=10, offset=0, filter='newest' }:  Get & { filter?: Filter }) => {
+
  switch (filter) {
      case 'newest':
          return await getCardsConstant({limit,offset,orderBy:desc(yearbooks.createdAt)});
@@ -42,11 +43,11 @@ export const getCardsFromGallery = async ({ limit=10, offset=0, filter='newest' 
  }
 
 };
-const getCardsConstant=cache(async({limit,offset,orderBy}:{limit:number,offset:number,orderBy:any})=>{
-const count=await getCardsCounts(orderBy) || 0
-  const cards= await  getCardsStatement(limit,offset,orderBy).execute()
+const getCardsConstant=async({limit,offset,orderBy}:{limit:number,offset:number,orderBy:any})=>{
+const count=await getCardsCounts(orderBy);
+  const cards= await  getCardsStatement(limit,offset,orderBy).execute();
        return {cards,count}
-})
+}
 export const likeCard = async (card: any, userId: number) => {
    try {
        const newLike: NewLike = {
@@ -61,7 +62,7 @@ export const likeCard = async (card: any, userId: number) => {
 
    }
    catch (error: any) {
-       throw new Error(error.message || 'Failed to like card, please try again')
+       throw new Error('Failed to like card, please try login or signup')
    }
 }
 export const unlikeCard = async (card: any, userId: number) => {

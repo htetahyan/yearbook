@@ -1,25 +1,34 @@
 'use client';
-import React, { useCallback, useRef } from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 import Card from "~/app/(gallery)/_gallery_components/card/card";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAppSelector } from "~/app/_components/providers/hooks";
 import useFetchGallery from "~/hooks/useFetchGallery";
 
 const Cards = () => {
-    const searchParams = useSearchParams();
     const params = useAppSelector((state) => state.filter);
-    const filter = searchParams.get('filter') ;
+    const filter = params.filter
     const [offset, setOffset] = React.useState(0);
     const { cards, isLoading, isError,hasMore } = useFetchGallery({ limit: params.limit, offset, filter });
-    const router = useRouter();
+
 
     const observer = useRef<IntersectionObserver>();
+const bottomRef = useCallback((node: HTMLDivElement) => {
+    if (isLoading) return;
+    if (observer.current) observer.current.disconnect();
+    observer.current = new IntersectionObserver((entries) => {
+        if (entries?.[0]?.isIntersecting && hasMore) {
+            setOffset((prev) => prev + params.limit);
+        }else {
+          if(offset >12 )  setOffset((prev) => prev - params.limit);
+        }
+    })
+
+    if (node) observer.current.observe(node);
+}, [isLoading, hasMore,cards.length]);
 
 
 
-    if (filter === null) {
-        router.push('/gallery?filter=newest');
-    } else {
         return (
             <div className='grid grid-cols-1 md:grid-cols-3 gap-2 lg:grid-cols-6 w-full'>
                 {cards?.map((card, i) => (
@@ -41,10 +50,10 @@ const Cards = () => {
                         />
                     </div>
                 ))}
-                {isLoading && <div className='w-full h-10 flex justify-center items-center'>Loading...</div>}
+                {hasMore && <div ref={bottomRef} className='w-full h-10 flex justify-center items-center'>Loading...</div>}
             </div>
         );
-    }
+
 };
 
 export default Cards;
